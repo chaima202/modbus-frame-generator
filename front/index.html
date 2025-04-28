@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Générateur de Trames Modbus</title>
+  <style>
+    :root {
+      --primary: #2c3e50;
+      --secondary: #72b9e9;
+      --accent: #e74c3c;
+      --light: #ecf0f1;
+      --dark: #2c3e50;
+      --success: #27ae60;
+      --border-radius: 6px;
+      --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background-color: #83bcf5;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      background: white;
+      padding: 30px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+    }
+
+    h1 {
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid var(--light);
+    }
+
+    h2 {
+      color: var(--secondary);
+      margin-top: 25px;
+      font-size: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    select, input {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: var(--border-radius);
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    select:focus, input:focus {
+      outline: none;
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    }
+
+    button {
+      background-color: var(--secondary);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      width: 100%;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #4b9cd3;
+      transform: translateY(-2px);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    #resultat {
+      margin-top: 25px;
+      padding: 20px;
+      background-color: var(--light);
+      border-radius: var(--border-radius);
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 18px;
+      color: var(--dark);
+      word-break: break-all;
+      border-left: 4px solid var(--secondary);
+      white-space: pre-wrap;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .input-row > div {
+      flex: 1;
+    }
+
+    @media (max-width: 600px) {
+      .input-row {
+        flex-direction: column;
+        gap: 0;
+      }
+      
+      .container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Générateur de Trames MODBUS</h1>
+  
+    <div class="form-group">
+      <label for="type">Type de trame :</label>
+      <select id="type">
+        <option value="ascii">ASCII</option>
+        <option value="rtu">RTU</option>
+        <option value="tcp">TCP/IP</option>
+      </select>
+    </div>
+  
+    <div class="input-row">
+      <div class="form-group">
+        <label for="adresse">Adresse :</label>
+        <input type="text" id="adresse" placeholder="01" value="01" maxlength="2">
+      </div>
+  
+      <div class="form-group">
+        <label for="fonction">Fonction :</label>
+        <input type="text" id="fonction" placeholder="03" value="03" maxlength="2">
+      </div>
+    </div>
+  
+    <div class="form-group">
+      <label for="donnees">Données :</label>
+      <input type="text" id="donnees" placeholder="00000002" value="00000002">
+    </div>
+  
+    <button onclick="genererTrame()">Générer Trame</button>
+  
+    <h2>Trame Générée :</h2>
+    <div id="resultat"></div>
+  
+    <div id="confirmation"></div> <!-- Added the confirmation div -->
+  </div>
+  
+
+  <script src="script.js"></script>
+</body>
+</html>
